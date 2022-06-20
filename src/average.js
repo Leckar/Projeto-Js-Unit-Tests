@@ -12,7 +12,7 @@
 */
 
 const average = (arr) => {
-  if (arr.every(e => { return typeof e === 'number'; }) && arr.length != 0) {
+  if (arr.every(e => typeof e === 'number') && arr.length !== 0) {
     let sum = 0;
     arr.map((e) => {
       sum += e;
