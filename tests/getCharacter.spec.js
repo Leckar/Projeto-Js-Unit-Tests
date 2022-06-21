@@ -43,13 +43,44 @@ Retorno:
 
 describe('9 - Implemente os casos de teste da função `getCharacter`', () => {
   it('Verifica se a função `getCharacter` retorna o objeto do personagem corretamente.', () => {
-    fail('Teste vazio!');
-    // ESCREVA SEUS TESTES ABAIXO:
     // Teste se a função, quando não recebe nenhum parâmetro, retorna undefined.
+    expect(undefined).toBe(getCharacter());
     // Teste se a função retorna o objeto correto para o parâmetro 'Arya',
+    expect({
+      name: 'Arya Stark',
+      class: 'Rogue',
+      phrases: ['Not today', 'A girl has no name.'],
+    }).toEqual(getCharacter('Arya'));
     // Teste se a função retorna o objeto correto para o parâmetro 'Brienne',
+    expect({
+      name: 'Brienne Tarth',
+      class: 'Knight',
+      phrases: ['Im No Lady, Your Grace.', 'I, Brienne Of Tarth, Sentence You To Die.'],
+    }).toEqual(getCharacter('Brienne'));
     // Teste se a função retorna o objeto correto para o parâmetro 'Melissandre',
+    expect({
+      name: 'Melissandre',
+      class: 'Necromancer',
+      phrases: ['Death By Fire Is The Purest Death.', 'For The Night Is Dark And Full Of Terrors.'],
+    }).toEqual(getCharacter('Melissandre'));
     // Teste se o parâmetro não é Case Sensitive, ou seja, independente de conter letras maiúsculas ou minúsculas retorna o mesmo objeto relativo a ele.
+    expect({
+      name: 'Arya Stark',
+      class: 'Rogue',
+      phrases: ['Not today', 'A girl has no name.'],
+    }).toEqual(getCharacter('arya'));
+    expect({
+      name: 'Brienne Tarth',
+      class: 'Knight',
+      phrases: ['Im No Lady, Your Grace.', 'I, Brienne Of Tarth, Sentence You To Die.'],
+    }).toEqual(getCharacter('bRiEnNe'));
+    expect({
+      name: 'Melissandre',
+      class: 'Necromancer',
+      phrases: ['Death By Fire Is The Purest Death.', 'For The Night Is Dark And Full Of Terrors.'],
+    }).toEqual(getCharacter('MELISSANDRE'));    
     // Teste se ao passar um nome que não está na tabela, a função retorna undefined.
+    expect(undefined).toBe(getCharacter('aleatório'));
+    expect(undefined).toBe(getCharacter('Mogli'));
   });
 });
