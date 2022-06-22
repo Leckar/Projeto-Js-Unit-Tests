@@ -54,12 +54,10 @@ const createMenu = require('../src/restaurant');
 
 describe('10 - Implemente os casos de teste e a função `createMenu`', () => {
   it('Verifica se a função `createMenu` tem o comportamento esperado', () => {
-    fail('Teste vazio!');
     // TESTE 1: Verifique se função `createMenu()` retorna um objeto que possui a chave `fetchMenu`, a qual tem como valor uma função.
-    // ```
     // const objetoRetornado = createMenu(); // Retorno: { fetchMenu: () => {}, ... }
     // ```
-    // TESTE 2: Verifique se 'objetoRetornado.fetchMenu()' retorna um objeto cujas chaves são somente `food` e `drink`, 
+    // TESTE 2: Verifique se 'objetoRetornado.fetchMenu()' retorna um objeto cujas chaves são somente `food` e `drink`,
     // considerando que a função createMenu() foi chamada com o objeto: `{ food: {}, drink: {} }`.
     // ```
     // const objetoRetornado = createMenu({ food: {}, drink: {} });
@@ -70,10 +68,9 @@ describe('10 - Implemente os casos de teste e a função `createMenu`', () => {
     // const objetoRetornado = createMenu(objetoQualquer);
     // objetoRetornado.fetchMenu() // Retorno: objetoQualquer
     // ```
-
+  
     // Agora faça o PASSO 1 no arquivo `src/restaurant.js`.
     // --------------------------------------------------------------------------------------
-
     // TESTE 4: Verifique se 'objetoRetornado.consumption', após a criação do menu, retorna um array vazio.
     // ```
     // const objetoRetornado = createMenu(objetoQualquer);
@@ -125,7 +122,43 @@ describe('10 - Implemente os casos de teste e a função `createMenu`', () => {
     // objetoRetornado.order('coxinha');
     // objetoRetornado.pay() // Retorno: somaDosPreçosDosPedidos
     // ```
-  
+
     // Agora faça o PASSO 4 no arquivo `src/restaurant.js`.
+    //Teste 1
+    expect(typeof createMenu() === 'object' && typeof createMenu().fetchMenu === 'function').toBe(true);
+    //Teste 2
+    expect(Object.keys(createMenu({ food: {}, drink: {} }).fetchMenu())).toEqual(['food', 'drink']);
+    //Teste 3
+    expect(createMenu({ food: {}, drink: {} }).fetchMenu()).toMatchObject({ food: {}, drink: {} });
+    //Teste 4
+    expect(createMenu().consumption).toEqual([]);
+    //Teste 5
+    const orderTrack = (item) => {
+      const menu = createMenu({ food: {}, drink: {} });
+      menu.order(item);
+      return menu.consumption;
+    };
+    expect(orderTrack('coxinha')).toContain('coxinha');
+    //Teste 6
+    const menu1 = () => {
+      const newMenu = createMenu();
+      newMenu.order('coxinha');
+      newMenu.order('água');
+      newMenu.order('sopa');
+      newMenu.order('sashimi');
+      return newMenu;
+    };
+    expect(menu1().consumption).toEqual(['coxinha', 'água', 'sopa', 'sashimi']);
+    //Teste 7
+    const menu2 = () => {
+      const newMenu = createMenu({ food: {'coxinha': 3, 'sopa': 8, 'sashimi': 15}, drink: {'água': 2} });
+      newMenu.order('coxinha');
+      newMenu.order('água');
+      newMenu.order('coxinha');
+      return newMenu;
+    };
+    expect(menu2().consumption).toEqual(['coxinha', 'água', 'coxinha']);
+    //Teste 8
+    expect(menu2().pay()).toMatch('8.80 reais.');
   });
 });
